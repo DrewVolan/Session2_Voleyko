@@ -36,7 +36,10 @@ namespace Session1_Voleyko_171_371
             await sqlConnection.OpenAsync();
             SqlDataReader sdr;
             SqlCommand cmdSelect = new SqlCommand("SELECT * FROM [Users]", sqlConnection);
-            SqlCommand checkId = new SqlCommand("SELECT * FROM [Activity]", sqlConnection);
+
+            //Ниже закомментированный код, который относится к первой сессии, для работы во второй нужно добавить таблицу.
+
+            /*SqlCommand checkId = new SqlCommand("SELECT * FROM [Activity]", sqlConnection);
             SqlCommand loginReg = new SqlCommand("INSERT INTO [Activity] (ID, UserID, LoginDate, LoginTime) VALUES (@ID, @UserID, @LoginDate, @LoginTime)", sqlConnection);
             sdr = await checkId.ExecuteReaderAsync();
             int id = 1;
@@ -45,7 +48,8 @@ namespace Session1_Voleyko_171_371
                 id++;
             }
             sdr.Close();
-            loginReg.Parameters.AddWithValue("ID", id);
+            loginReg.Parameters.AddWithValue("ID", id);*/
+
             bool checkLogin = false;
             string role = null;
             try
@@ -57,13 +61,15 @@ namespace Session1_Voleyko_171_371
                     {
                         if (passwordTextBox.Text == Convert.ToString(sdr["Password"]))
                         {
-                            int userId = Convert.ToInt32(sdr["ID"]);
+
+                            /*int userId = Convert.ToInt32(sdr["ID"]);
                             DateTime dateTime = DateTime.Now;
                             string loginDate = (dateTime.ToString().Split(new char[] { ' ' }))[0];
                             string loginTime = (dateTime.ToString().Split(new char[] { ' ' }))[1];
                             loginReg.Parameters.AddWithValue("UserID", userId);
                             loginReg.Parameters.AddWithValue("LoginDate", loginDate);
-                            loginReg.Parameters.AddWithValue("LoginTime", loginTime);
+                            loginReg.Parameters.AddWithValue("LoginTime", loginTime);*/
+
                             checkLogin = true;
                             role = Convert.ToString(sdr["RoleID"]);
                             break;
@@ -73,7 +79,7 @@ namespace Session1_Voleyko_171_371
                             warningLabel.Text = "Пароль неверный!";
                             warningLabel.Visible = true;
                             countAttempt--;
-                            break;
+                            //break;
                         }
                     }
                     else
@@ -81,29 +87,43 @@ namespace Session1_Voleyko_171_371
                         warningLabel.Text = "Логин неверный!";
                         warningLabel.Visible = true;
                         countAttempt--;
-                        break;
+                        //break;
                     }
                 }
                 sdr.Close();
                 if (checkLogin == true)
                 {
-                    await loginReg.ExecuteNonQueryAsync();
+                    //await loginReg.ExecuteNonQueryAsync();
                     switch (role)
                     {
                         case "1":
-                            AdministratorForm reg1 = new AdministratorForm();
-                            //reg1.Size = this.Size;
-                            reg1.Left = this.Left;
-                            reg1.Top = this.Top;
+                            AdministratorForm reg1 = new AdministratorForm
+                            {
+                                Login = usernameTextBox.Text,
+                                Left = this.Left,
+                                Top = this.Top
+                            };
                             reg1.Show();
                             this.Hide();
                             break;
                         case "2":
-                            UserForm reg2 = new UserForm();
-                            //reg2.Size = this.Size;
-                            reg2.Left = this.Left;
-                            reg2.Top = this.Top;
+                            UserForm reg2 = new UserForm
+                            {
+                                Login = usernameTextBox.Text,
+                                Left = this.Left,
+                                Top = this.Top
+                            };
                             reg2.Show();
+                            this.Hide();
+                            break;
+                        case "3":
+                            ManagerForm reg3 = new ManagerForm
+                            {
+                                Login = usernameTextBox.Text,
+                                //Left = this.Left,
+                                //Top = this.Top
+                            };
+                            reg3.Show();
                             this.Hide();
                             break;
                     }

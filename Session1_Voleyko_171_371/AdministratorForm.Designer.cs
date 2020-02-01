@@ -81,7 +81,7 @@
             this.Controls.Add(this.addUserButton);
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "AdministratorForm";
-            this.Text = "AdministratorForm";
+            this.Text = "Форма администратора";
             this.Load += new System.EventHandler(this.AdministratorForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

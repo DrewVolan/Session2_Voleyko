@@ -31,10 +31,10 @@ namespace Session1_Voleyko_171_371
                 sdr = await selectUsers.ExecuteReaderAsync();
                 while (await sdr.ReadAsync())
                 {
-                    dateBirthDay = Convert.ToDateTime(sdr["Birthday"]);
+                    dateBirthDay = Convert.ToDateTime(sdr["Birthdate"]);
                     age = DateTime.Now.Year - dateBirthDay.Year;
                     if (DateTime.Now.Month < dateBirthDay.Month || (DateTime.Now.Month == dateBirthDay.Month && DateTime.Now.Day < dateBirthDay.Day)) age--;
-                    usersListBox.Items.Add(Convert.ToString(sdr["Firstname"]) + ";  " + Convert.ToString(sdr["Lastname"]) + ";  " + age + "; " + Convert.ToString(sdr["RoleID"]) + ";   " + Convert.ToString(sdr["Email"]) + ";     " + Convert.ToString(sdr["OfficeID"]));
+                    usersListBox.Items.Add(Convert.ToString(sdr["Firstname"]) + "  " + Convert.ToString(sdr["Lastname"]) + ";  Ages: " + age + "; RoleID: " + Convert.ToString(sdr["RoleID"]) + ";   E-mail: " + Convert.ToString(sdr["Email"]) + ";     OfficeID: " + Convert.ToString(sdr["OfficeID"]));
                 }
             }
             catch (Exception ex)

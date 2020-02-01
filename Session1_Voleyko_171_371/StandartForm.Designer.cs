@@ -38,6 +38,7 @@
             this.Name = "StandartForm";
             this.Text = "StandartForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.StandartForm_FormClosed);
+            this.Load += new System.EventHandler(this.StandartForm_Load);
             this.ResumeLayout(false);
 
         }

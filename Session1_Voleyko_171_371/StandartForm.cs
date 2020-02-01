@@ -18,7 +18,7 @@ namespace Session1_Voleyko_171_371
         /// <summary>
         /// Путь к базе данных.
         /// </summary>
-        public string connectionPath = @"Data Source=localhost;Initial Catalog=Session1_Voleyko;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        public string connectionPath = @"Data Source=localhost;Initial Catalog=Session2_Voleyko;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         public SqlConnection sqlConnection;
         public SqlDataReader sdr;
@@ -31,6 +31,11 @@ namespace Session1_Voleyko_171_371
         private void StandartForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void StandartForm_Load(object sender, EventArgs e)
+        {
+            //loginLabel.Text += $"{Login}.";
         }
     }
 }
