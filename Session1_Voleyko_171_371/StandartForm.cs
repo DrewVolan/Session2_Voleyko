@@ -27,5 +27,10 @@ namespace Session1_Voleyko_171_371
             InitializeComponent();
             this.CenterToScreen();
         }
+
+        private void StandartForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

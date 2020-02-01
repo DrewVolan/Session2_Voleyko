@@ -47,6 +47,7 @@ namespace Session1_Voleyko_171_371
             sdr.Close();
             loginReg.Parameters.AddWithValue("ID", id);
             bool checkLogin = false;
+            string role = null;
             try
             {
                 sdr = await cmdSelect.ExecuteReaderAsync();
@@ -54,19 +55,17 @@ namespace Session1_Voleyko_171_371
                 {
                     if (usernameTextBox.Text == Convert.ToString(sdr["Email"]))
                     {
-                        //checkLogin = true;
                         if (passwordTextBox.Text == Convert.ToString(sdr["Password"]))
                         {
-                            MessageBox.Show("Успешно!");
                             int userId = Convert.ToInt32(sdr["ID"]);
                             DateTime dateTime = DateTime.Now;
                             string loginDate = (dateTime.ToString().Split(new char[] { ' ' }))[0];
                             string loginTime = (dateTime.ToString().Split(new char[] { ' ' }))[1];
-                            MessageBox.Show(loginDate.ToString() + " " + loginTime);
                             loginReg.Parameters.AddWithValue("UserID", userId);
                             loginReg.Parameters.AddWithValue("LoginDate", loginDate);
                             loginReg.Parameters.AddWithValue("LoginTime", loginTime);
                             checkLogin = true;
+                            role = Convert.ToString(sdr["RoleID"]);
                             break;
                         }
                         else
@@ -89,6 +88,25 @@ namespace Session1_Voleyko_171_371
                 if (checkLogin == true)
                 {
                     await loginReg.ExecuteNonQueryAsync();
+                    switch (role)
+                    {
+                        case "1":
+                            AdministratorForm reg1 = new AdministratorForm();
+                            //reg1.Size = this.Size;
+                            reg1.Left = this.Left;
+                            reg1.Top = this.Top;
+                            reg1.Show();
+                            this.Hide();
+                            break;
+                        case "2":
+                            UserForm reg2 = new UserForm();
+                            //reg2.Size = this.Size;
+                            reg2.Left = this.Left;
+                            reg2.Top = this.Top;
+                            reg2.Show();
+                            this.Hide();
+                            break;
+                    }
                 }
                 sqlConnection.Close();
             }
@@ -110,10 +128,6 @@ namespace Session1_Voleyko_171_371
             }
         }
         private void ExitButton_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-        private void AuthorizationForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
